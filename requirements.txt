@@ -1,0 +1,9 @@
+deep_translator
+autocorrect
+langdetect
+xlwings
+pandas
+numpy
+re
+fuzzywuzzy
+chardet
