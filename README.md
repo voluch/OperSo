@@ -1,0 +1,2 @@
+# OperSo
+OperSo DataScience tasks
