@@ -1,15 +1,17 @@
 from googletrans import Translator
+from tqdm import tqdm
 
 
 class Preprocessor:
-    def __int__(self):
+    def __init__(self):
         self.df = None
+        self.translator = Translator()
 
-    def translate(self):
-        translator = Translator()
-        self.df['X'] = [translator.translate(x, dest='uk').text for x in self.df[0].tolist()]
-
-    def fit(self, df):
-        self.df = df
-        self.translate()
+    def apply(self, df, _translate):
+        self.df = df.copy()
+        if _translate:
+            self.df['X'] = [self.translator.translate(x.lower(), dest='uk').text
+                            for x in tqdm(self.df.iloc[:, 0].tolist())]
+        else:
+            self.df['X'] = [x.lower() for x in tqdm(self.df.iloc[:, 0].tolist())]
         return self.df
