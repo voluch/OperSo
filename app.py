@@ -28,7 +28,8 @@ class Result(Resource):
         self.parse.add_argument('csv_file', type=werkzeug.datastructures.FileStorage, location='files', required=True)
         self.parse.add_argument('min_input', default=0, type=int, location='form')
         self.parse.add_argument('check_translate', default=False, type=bool, location='form')
-        self.cluster = Cluster()
+        self.cluster = Cluster('paraphrase-multilingual-mpnet-base-v2')
+        # self.cluster = Cluster('distiluse-base-multilingual-cased-v2')
 
     def get(self):
         return redirect(url_for('index'))

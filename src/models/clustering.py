@@ -8,10 +8,10 @@ from src.models.preprocessor import Preprocessor
 
 class Cluster:
 
-    def __init__(self):
+    def __init__(self, model):
         self.df = None
         self.prepr = Preprocessor()
-        self.model = SentenceTransformer('ukr-models/xlm-roberta-base-uk')
+        self.model = SentenceTransformer(model)
         self.X = None
         self.tags = []
 
