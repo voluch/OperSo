@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="/result" id="js-battery-form" method="POST" enctype="multipart/form-data">
+    <h1 class="mt-5 d-flex justify-content-md-center ">Обробка відкритих питань</h1>
+
+
+    <div class="input-group custom-file-button mt-5 d-flex justify-content-md-center">
+        <label class="input-group-text" for="inputGroupFile">Обрати файл...</label>
+        <input type="file" class="form-control" id="inputGroupFile" name="csv_file" title="test" required>
+    </div>
+
+
+    <div class="input-group input-group mb-3 mt-5 d-flex justify-content-center">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Мінімально допустима кількість елементів в кластері</span>
+        <input type="text" class="form-control col-xs-2" id="min_input" name="min_input" value=3>
+    </div>
+    <div class="mt-5 d-flex justify-content-md-center">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value=True id="flexCheckDefault" name="check_translate"
+                   checked>
+            <label class="form-check-label" for="flexCheckDefault">
+                Перекладати іншомовні слова українською
+            </label>
+        </div>
+    </div>
+    <div class="mt-5 d-flex justify-content-center">
+        <button type="submit" id="btnFetch" class="spinner-button btn btn-primary mb-2">Кластеризувати</button>
+    </div>
+    <div class="mt-5 d-flex justify-content-md-center">
+        <div class="spinner-border visually-hidden" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    $(document).ready(function () {
+        $("#btnFetch").click(function () {
+            if ($("#js-battery-form")[0].checkValidity()) {
+                // disable button
+                $(this).prop("disabled", true);
+                // add spinner to button
+                $(this).html(
+                    '<i class="fa fa-circle-o-notch fa-spin"></i> Обробка...'
+                );
+
+                $("#js-battery-form").submit();
+                $("#inputGroupFile").prop("disabled", true);
+                $("#min_input").prop("disabled", true);
+                $("#flexCheckDefault").prop("disabled", true);
+            } else {
+
+                $("#js-battery-form")[0].reportValidity();
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
