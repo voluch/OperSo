@@ -1,10 +1,8 @@
 import os
-from time import time
-from datetime import datetime
 import pandas as pd
 import werkzeug
 from flask import Flask
-from flask import render_template, make_response, redirect, url_for
+from flask import render_template, make_response, redirect, url_for, send_from_directory
 from flask_restful import Resource, Api, reqparse
 
 from src.models.clustering import Cluster
@@ -19,6 +17,12 @@ app.static_folder = 'static'
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+
+@app.route('/download', methods=['GET'])
+def download():
+    uploads = os.path.join(app.root_path, app.config['uploadFolder'])
+    return send_from_directory(uploads, 'result.csv', as_attachment=True)
 
 
 class Result(Resource):
@@ -43,7 +47,7 @@ class Result(Resource):
             df = pd.read_csv(_input)
             result = self.cluster.apply(df, _min, _translate)
             self.cluster.df.to_csv(os.path.join(app.config['uploadFolder'],
-                                                f'tags_{datetime.fromtimestamp(time())}.csv'))
+                                                f'result.csv'))
             self.cluster.clear_tags()
             return make_response(render_template('result.html', tags=result), 200)
         except:

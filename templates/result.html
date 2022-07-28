@@ -2,33 +2,45 @@
 
 {% block content %}
 
-<div class="mb-2 mt-2 justify-content-center">
-    <div class="mb-3 mt-5  d-flex justify-content-md-center">
-        <table class="table table-striped table-md">
-            <thead>
-            <tr>
-                <th scope="col">Cluster #</th>
-                <th scope="col">Category</th>
-                <th scope="col">Count</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for item in tags %}
-            <tr>
-                <th scope="row">{{ item['cluster'] }}</th>
-                <td>{{ item['text'] }}</td>
-                <td>{{ item['count'] }}</td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <form action=" {{ url_for('index') }} " method="GET">
+    <div class="mb-2 mt-2 justify-content-center md-20">
         <div class="mb-3 mt-5  d-flex justify-content-md-center">
-            <button type="submit" class="btn btn-success">На головну</button>
+            <table class="table table-striped table-md">
+                <thead>
+                <tr>
+                    <th scope="col">Cluster #</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in tags %}
+                    <tr>
+                        <th scope="row">{{ item['cluster'] }}</th>
+                        <td>{{ item['text'] }}</td>
+                        <td>{{ item['count'] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
-    </form>
-</div>
+
+        <div class="row d-flex justify-content-md-center">
+            <div class="col-md-6">
+                <form action=" {{ url_for('download') }} " method="GET">
+                    <div class="mb-3 mt-5  d-flex justify-content-md-center">
+                        <button type="submit" class="btn btn-secondary">Завантажити файл</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form action=" {{ url_for('index') }} " method="GET">
+                    <div class="mb-3 mt-5  d-flex justify-content-md-center">
+                        <button type="submit" class="btn btn-success">На головну</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 
 {% endblock %}
