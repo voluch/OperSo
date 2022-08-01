@@ -38,13 +38,16 @@ To run application without Docker run command:
 ```
 python3 app.py runserver
 ```
-If you have already installed Docker then use next commands to build image and then run this image:
+If you have already installed Docker then use next command to build image (only at first run) note: dot at the end is needed:
+
 ```
 docker build -t operso .
-
+```
+and then run this image each time when you need to use application (first run will be long, because application will load models, necessary to make clustering):
+```
 docker run -p 8090:8090 operso
 ```
-To use application open Google Chrome and go to 
+To use application open Google Chrome and go to (type in url): 
 ```
 localhost:8090
 ```
