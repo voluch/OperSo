@@ -1,10 +1,10 @@
 import os
 import pandas as pd
 import werkzeug
-from flask import Flask
+from flask import Flask, Response
 from flask import render_template, make_response, redirect, url_for, send_from_directory
 from flask_restful import Resource, Api, reqparse
-
+import json
 from src.models.clustering import Cluster
 
 Upload = 'upload'
@@ -47,11 +47,11 @@ class Result(Resource):
             df = pd.read_csv(_input)
             result = self.cluster.apply(df, _min, _translate)
             self.cluster.df.to_csv(os.path.join(app.config['uploadFolder'],
-                                                f'result.csv'))
+                                                f'result.csv'), index=False)
             self.cluster.clear_tags()
             return make_response(render_template('result.html', tags=result), 200)
         except:
-            return make_response(render_template('result.html', tags=None), 403)
+            return Response(status=503, response=json.dumps({"message": "Smth wrong"}))
 
 
 api.add_resource(Result, '/result')

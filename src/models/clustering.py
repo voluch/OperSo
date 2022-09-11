@@ -34,14 +34,17 @@ class Cluster:
         for index, count in zip(_df.index, _df):
             if index != -1:
                 if len(self.df.loc[self.df.cluster == index, 'X'].unique().tolist()) > 3:
+                    cluster_name = '___'.join(sample(self.df.loc[self.df.cluster == index,
+                                                                 'X'].unique().tolist(), 3))
                     self.tags.append({'cluster': index,
-                                      'text': '___'.join(sample(self.df.loc[self.df.cluster == index,
-                                                                            'X'].unique().tolist(), 3)),
+                                      'text': cluster_name,
                                       'count': count})
                 else:
+                    cluster_name = '___'.join(self.df.loc[self.df.cluster == index, 'X'].unique().tolist())
                     self.tags.append({'cluster': index,
-                                      'text': '___'.join(self.df.loc[self.df.cluster == index, 'X'].unique().tolist()),
+                                      'text': cluster_name,
                                       'count': count})
+                self.df.loc[self.df.cluster == index, 'cluster_name'] = cluster_name
 
     def apply(self, df, _min, _translate):
         self.df = self.prepr.apply(df, _translate)

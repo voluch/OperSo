@@ -11,7 +11,8 @@ class Preprocessor:
         self.df = df.copy()
         if _translate:
             self.df['X'] = [self.translator.translate(x.lower(), dest='uk').text
-                            for x in tqdm(self.df.iloc[:, 0].tolist())]
+                            for x in tqdm(self.df.loc[:, 'input'].tolist())]
         else:
-            self.df['X'] = [x.lower() for x in tqdm(self.df.iloc[:, 0].tolist())]
+            print(self.df.loc[:, 'input'].tolist())
+            self.df['X'] = [x.lower() for x in tqdm(self.df.loc[:, 'input'].tolist())]
         return self.df
