@@ -1,9 +1,12 @@
 # OperSo
 
 This application can be used by sociological companies to analyse "Open questions" answers (question without answer
-options). THis application make a clustering of answers.
+options). This application makes a clustering of answers.
 
 ## Installation
+
+Be sure, that you have already installed python and git on your PC.
+If not, at installing python, it is better to check "Add PATH to..." to avoid problems in a future.
 
 To open Command Prompt press Win + R to open the Run box, then type "cmd" and hit Enter to open it.
 Go to the folder where you want to install application with command:
